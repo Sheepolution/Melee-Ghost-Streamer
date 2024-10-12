@@ -1,7 +1,7 @@
 {
   "name": "melee-ghost-streamer",
   "productName": "Melee Ghost Streamer",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "An electron interface for Melee tournament streams.",
   "main": "src/index.js",
   "scripts": {
