@@ -10,25 +10,18 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 630,
+    width: 900,
+    height: 650,
 
-    minWidth: 800,
-    minHeight: 630,
-    maxWidth: 800,
-    maxHeight: 630,
+    minWidth: 900,
+    minHeight: 650,
+    maxWidth: 1920,
+    maxHeight: 650,
 
     webPreferences: {
       nodeIntegration: true,
     }
   });
-
-  // we dont like menus
-  if (!process.env.DEV_ENV) {
-    mainWindow.removeMenu();
-  } else {
-    mainWindow.webContents.openDevTools();
-  }
 
   // load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
