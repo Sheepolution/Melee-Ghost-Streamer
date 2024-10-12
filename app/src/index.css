@@ -128,13 +128,22 @@ input[type="text"] {
 }
 
 #p1Tag,
-#p2Tag {
+#p2Tag,
+#p1Pronouns,
+#p2Pronouns {
   float: left;
   min-width: 34px;
-  max-width: 70px;
+  max-width: 74px;
   width: 34px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
+}
+
+#p1Pronouns,
+#p2Pronouns {
+  min-width: 74px;
+  max-width: 120px;
+  width: 74px;
 }
 
 #p1Name,
@@ -399,7 +408,6 @@ input[type="text"] {
   height: 12px;
   width: 12px;
   fill: #b6b6b6;
-  opacity: 0;
   transform: scale(1.5, 1.5);
   transition: opacity 200ms, transform 200ms;
 }

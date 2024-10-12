@@ -60,8 +60,10 @@ const fieldIds = [
     "obsURL",
     "obsPort",
     "startggUrl",
+    "p1Pronouns",
     "p1Tag",
     "p1Name",
+    "p2Pronouns",
     "p2Tag",
     "p2Name",
     "roundName",
@@ -179,6 +181,7 @@ const obsPasswordInp = document.getElementById('obsPassword');
 
 const p1NameInp = document.getElementById('p1Name');
 const p1TagInp = document.getElementById('p1Tag');
+const p1PronounsInp = document.getElementById('p1Pronouns');
 const p1Auto = document.getElementById('p1Auto');
 p1Auto.onclick = (e) => {
     if (p1Auto.checked) {
@@ -190,6 +193,7 @@ p1Auto.onclick = (e) => {
 
 const p2NameInp = document.getElementById('p2Name');
 const p2TagInp = document.getElementById('p2Tag');
+const p2PronounsInp = document.getElementById('p2Pronouns');
 const p2Auto = document.getElementById('p2Auto');
 p2Auto.onclick = (e) => {
     if (p2Auto.checked) {
@@ -326,7 +330,6 @@ function init() {
     //resize the box whenever the user types
     p1TagInp.addEventListener("input", resizeInput);
     p2TagInp.addEventListener("input", resizeInput);
-
 
     //set click listeners to change the "best of" status
     document.getElementById("bo3Div").addEventListener("click", changeBestOf);
@@ -887,17 +890,22 @@ function swap() {
     let tempP1Team = p1TagInp.value;
     let tempP2Name = p2NameInp.value;
     let tempP2Team = p2TagInp.value;
+    let tempP1Pronouns = p1PronounsInp.value;
+    let tempP2Pronouns = p2PronounsInp.value;
 
     p1NameInp.value = tempP2Name;
     p1TagInp.value = tempP2Team;
+    p1PronounsInp.value = tempP2Pronouns;
     p2NameInp.value = tempP1Name;
     p2TagInp.value = tempP1Team;
+    p2PronounsInp.value = tempP1Pronouns;
 
     changeInputWidth(p1NameInp);
     changeInputWidth(p1TagInp);
+    changeInputWidth(p1PronounsInp);
     changeInputWidth(p2NameInp);
     changeInputWidth(p2TagInp);
-
+    changeInputWidth(p2PronounsInp);
 
     let tempP1Char = charP1;
     let tempP2Char = charP2;
@@ -912,7 +920,6 @@ function swap() {
     skinP1 = tempP2Skin;
     skinP2 = tempP1Skin;
 
-
     tempP1Score = checkScore(p1Score);
     tempP2Score = checkScore(p2Score);
     setScore(tempP2Score, p1Score);
@@ -924,16 +931,23 @@ function swapNames() {
     let tempP1Team = p1TagInp.value;
     let tempP2Name = p2NameInp.value;
     let tempP2Team = p2TagInp.value;
+    let tempP1Pronouns = p1PronounsInp.value;
+    let tempP2Pronouns = p2PronounsInp.value;
 
     p1NameInp.value = tempP2Name;
     p1TagInp.value = tempP2Team;
+    p1PronounsInp.value = tempP2Pronouns;
     p2NameInp.value = tempP1Name;
     p2TagInp.value = tempP1Team;
+    p2PronounsInp.value = tempP1Pronouns;
 
     changeInputWidth(p1NameInp);
     changeInputWidth(p1TagInp);
+    changeInputWidth(p1PronounsInp);
     changeInputWidth(p2NameInp);
     changeInputWidth(p2TagInp);
+    changeInputWidth(p2PronounsInp);
+
     writeScoreboard();
 }
 
@@ -947,12 +961,16 @@ function swapScore() {
 
 function clearPlayers() {
     //clear player texts
+    p1PronounsInp.value = "";
     p1TagInp.value = "";
     p1NameInp.value = "";
+    p2PronounsInp.value = "";
     p2TagInp.value = "";
     p2NameInp.value = "";
+    changeInputWidth(p1PronounsInp);
     changeInputWidth(p1TagInp);
     changeInputWidth(p1NameInp);
+    changeInputWidth(p2PronounsInp);
     changeInputWidth(p2TagInp);
     changeInputWidth(p2NameInp);
 
@@ -1015,6 +1033,7 @@ function writeScoreboard() {
     let scoreboardJson = {
         p1Name: p1NameInp.value,
         p1Team: p1TagInp.value,
+        p1Pronouns: p1PronounsInp.value,
         p1Character: charP1,
         p1Skin: skinP1,
         p1Color: colorP1,
@@ -1022,6 +1041,7 @@ function writeScoreboard() {
         p1WL: currentP1WL,
         p2Name: p2NameInp.value,
         p2Team: p2TagInp.value,
+        p2Pronouns: p2PronounsInp.value,
         p2Character: charP2,
         p2Skin: skinP2,
         p2Color: colorP2,
@@ -1059,6 +1079,8 @@ function writeScoreboard() {
         p2Name: p2NameInp.value,
         p1Tag: p1TagInp.value,
         p2Tag: p2TagInp.value,
+        p1Pronouns: p1PronounsInp.value,
+        p2Pronouns: p2PronounsInp.value,
         round: roundInp.value,
         tournamentName: document.getElementById('tournamentName').value,
         caster1Name: document.getElementById('cName1').value,
@@ -1089,6 +1111,9 @@ function writeScoreboard() {
 
     fs.writeFile(textPath + "/Simple Texts/Player 1 Team.txt", texts.p1Tag, noop);
     fs.writeFile(textPath + "/Simple Texts/Player 2 Team.txt", texts.p2Tag, noop);
+
+    fs.writeFile(textPath + "/Simple Texts/Player 1 Pronouns.txt", texts.p1Pronouns, noop);
+    fs.writeFile(textPath + "/Simple Texts/Player 2 Pronouns.txt", texts.p2Pronouns, noop);
 
     fs.writeFile(textPath + "/Simple Texts/Round.txt", texts.round, noop);
     fs.writeFile(textPath + "/Simple Texts/Tournament Name.txt", texts.tournamentName, noop);
@@ -1418,6 +1443,9 @@ async function getPGInfo(name1, name2) {
 
         const p1Profile = playerNumber == 1 ? playerProfile : opponentProfile;
         const p2Profile = playerNumber == 2 ? playerProfile : opponentProfile;
+
+        p1PronounsInp.value = p1Profile?.pronoun ?? "";
+        p2PronounsInp.value = p2Profile?.pronoun ?? "";
 
         const p1Avatar = p1Profile?.images?.profile?.url;
         const p2Avatar = p2Profile?.images?.profile?.url;
