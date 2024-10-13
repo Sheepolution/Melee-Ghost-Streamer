@@ -1444,8 +1444,8 @@ async function getPGInfo(name1, name2) {
         const p1Profile = playerNumber == 1 ? playerProfile : opponentProfile;
         const p2Profile = playerNumber == 2 ? playerProfile : opponentProfile;
 
-        p1PronounsInp.value = p1Profile?.pronoun ?? "";
-        p2PronounsInp.value = p2Profile?.pronoun ?? "";
+        p1PronounsInp.value = p1Profile?.pronoun ?? p1PronounsInp.value;
+        p2PronounsInp.value = p2Profile?.pronoun ?? p2PronounsInp.value;
 
         const p1Avatar = p1Profile?.images?.profile?.url;
         const p2Avatar = p2Profile?.images?.profile?.url;
