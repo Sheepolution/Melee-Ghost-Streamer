@@ -1,3 +1,9 @@
+## ⚠️ No longer maintained
+
+I won't archive the repository just yet, but this project is no longer maintained. I've always hoped someone would step up and improve Melee Ghost Streamer. I'm not sure if that has happened yet.
+
+If you have an improved fork, or an entirely new tool, let me know, so that I can link to your project here.
+
 ![preview](doc/full_window.png)
 
 # Melee Ghost Streamer
