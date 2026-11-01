@@ -1855,7 +1855,9 @@ async function fetchSetDataFromStartGG(fromButton) {
         const parser = new DOMParser();
         const htmlDoc = parser.parseFromString(htmlString, 'text/html');
 
-        const element = htmlDoc.querySelector('.match.in-progress .fa-twitch');
+        const element =
+            htmlDoc.querySelector('.match.in-progress .fa-twitch') ||
+            htmlDoc.querySelector('.match.in-progress .fa-youtube-play');
         if (element == null) {
             if (startggTimeout != null) {
                 clearTimeout(startggTimeout);
